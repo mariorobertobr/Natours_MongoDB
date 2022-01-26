@@ -12,6 +12,12 @@ const handleValidationError = (err) => {
   return new AppError(message, 400);
 };
 
+const handleValidationErrorDB = (err) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
+  const message = `invalid input data. ${errors.join('. ')}`;
+  return new AppError(message, 400);
+};
+
 const handleMongoErrorDB = (err) => {
   //const value = err.errmsg.match(/(["'])(\\?.)*?\1/);
   const value = err.keyValue.name;
